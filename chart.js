@@ -92,7 +92,7 @@ function str_to_color(str) {
     return '#fff';
 }
 function format_sticker_category(sticker_category) {
-    return sticker_category.stickers.reduce((sticker_html, s) => sticker_html + `\n<img class='sticker' src='${s}'></img>`, '');
+    return sticker_category.reduce((sticker_html, s) => sticker_html + `\n<img class='sticker' src='${s}'></img>`, '');
 }
 function format_category(type, value, sticker_category) {
     const primary_color = str_to_color(type + "_primary");
