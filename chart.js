@@ -94,43 +94,35 @@ function str_to_color(str) {
 function format_sticker_category(sticker_category) {
     return sticker_category.stickers.reduce((sticker_html, s) => sticker_html + `\n<img class='sticker' src='${s}'></img>`, '');
 }
-function format_category(type, value) {
+function format_category(type, value, sticker_category) {
     const primary_color = str_to_color(type + "_primary");
     const secondary_color = str_to_color(type + "_secondary");
-    if (type in day.sticker_catagories) {
-        const categories = day.sticker_catagories[type]
-        stickers = categories.reduce((category_html, sticker_category) =>
-            category_html + format_sticker_category(sticker_category) + '\n', '');
-        return `
+    return `
             <div 
                 class='category ${type}' 
                 data-category-value='${categories.length * value}'
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
-                    ${stickers}
+                    ${format_sticker_category(sticker_category)}
             </div>`;
-    }
-    else {
-        return `
-            <div 
-                class='category ${type}' 
-                data-category-value='0'
-                style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
-            </div>`;
-    }
+
 }
+
 function format_day(date, day) {
     const catagories = new Cookie("catagories");
     let catagories_html = "";
     let day_value = 0;
     for (let [type, value] of catagories.getAllItems()) {
-        catagories_html += format_category(type, value);
-        day_value += (day.catagories[type] ?? []).length * value;
+        const category = day.catagories[type]?? [];
+        catagories_html += format_category(type, value, category);
+        day_value += category.length * value;
     }
     return `
-         <div class='day' data-timestamp='${day.timestamp}' data-day-value='${day.stickers.length}'data-day-value=${day_value}>
+         <div class='day' data-timestamp='${date}' data-day-value='${day.stickers.length}'data-day-value=${day_value}>
            ${catagories_html}
         </div>`;
 }
+
+
 function getDateString(day) {
     var dd = String(day.getDate()).padStart(2, '0');
     var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 0!
