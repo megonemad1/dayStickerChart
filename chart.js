@@ -112,7 +112,7 @@ function format_day(date, day) {
     let catagories_html = "";
     let day_value = 0;
     for (let [type, value] of catagories.getAllItems()) {
-        const category = day.catagories[type]?? [];
+        const category = day.catagories[type] ?? [];
         catagories_html += format_category(type, value, category);
         day_value += category.length * value;
     }
@@ -134,9 +134,10 @@ const days = Object.fromEntries(new Cookie("day").getAllItems());
 const today = getDateString(new Date());
 if (!days[today])
     days[today] = {};
+Console.log(days);
 var days_html = "";
-for (const date in data.days) {
-    days_html += format_day(date, days[date])
+for (const [date,day] of Object.entries(days)) {
+    days_html += format_day(date, day)
 }
 document.querySelector(".board").innerHTML = days_html;
 
