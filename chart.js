@@ -100,7 +100,7 @@ function format_category(type, value, sticker_category) {
     return `
             <div 
                 class='category ${type}' 
-                data-category-value='${categories.length * value}'
+                data-category-value='${sticker_category.length * value}'
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
                     ${format_sticker_category(sticker_category)}
             </div>`;
