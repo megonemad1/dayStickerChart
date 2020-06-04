@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
   }
-  .sticker_container{
+  .sticker-container{
     height: 4rem;
   }
   .sticker{

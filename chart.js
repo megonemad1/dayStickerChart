@@ -105,7 +105,7 @@ function format_category(type, value, sticker_category) {
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
                 <div class="card-body">
                     <h5 class="card-title">${type}</h5>
-                    <div class="sticker_container flex-container">${format_sticker_category(sticker_category)}</div>
+                    <div class="sticker-container flex-container">${format_sticker_category(sticker_category)}</div>
                 </div>
             </div>`;
 }
