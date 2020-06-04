@@ -99,7 +99,7 @@ function format_category(type, value, sticker_category) {
     const secondary_color = str_to_color(type + "_secondary");
     return `
             <div 
-                class='category col flex-container ${type}' 
+                class='category col card flex-container ${type}' 
                 data-category-total-value='${sticker_category.length * value}'
                 data-category-value='${value}'
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
