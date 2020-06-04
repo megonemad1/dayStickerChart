@@ -99,11 +99,12 @@ function format_category(type, value, sticker_category) {
     const secondary_color = str_to_color(type + "_secondary");
     return `
             <div 
-                class='category col card flex-container ${type}' 
+                class='category col card ${type}' 
                 data-category-total-value='${sticker_category.length * value}'
                 data-category-value='${value}'
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
-                    ${format_sticker_category(sticker_category)}
+                <span>${type}</span>
+                <div class="sticker_container flex-container">${format_sticker_category(sticker_category)}</div>
             </div>`;
 
 }
@@ -134,9 +135,9 @@ update_catagories();
 const days = Object.fromEntries(new Cookie("day").getAllItems());
 const today = getDateString(new Date());
 if (!days[today])
-    days[today] = {catagories:{}};
+    days[today] = { catagories: {} };
 var days_html = "";
-for (const [date,day] of Object.entries(days)) {
+for (const [date, day] of Object.entries(days)) {
     days_html += format_day(date, day)
 }
 document.querySelector(".board").innerHTML = days_html;
