@@ -103,10 +103,11 @@ function format_category(type, value, sticker_category) {
                 data-category-total-value='${sticker_category.length * value}'
                 data-category-value='${value}'
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
-                <span>${type}</span>
-                <div class="sticker_container flex-container">${format_sticker_category(sticker_category)}</div>
+                <div class="card-body">
+                    <h5 class="card-title">${type}</h5>
+                    <div class="sticker_container flex-container">${format_sticker_category(sticker_category)}</div>
+                </div>
             </div>`;
-
 }
 
 function format_day(date, day) {
