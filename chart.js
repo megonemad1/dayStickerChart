@@ -99,7 +99,7 @@ function format_category(type, value, sticker_category) {
     const secondary_color = str_to_color(type + "_secondary");
     return `
             <div 
-                class='category ${type}' 
+                class='category col flex-container ${type}' 
                 data-category-total-value='${sticker_category.length * value}'
                 data-category-value='${value}'
                 style='--primary-color: "${primary_color}"; --secondary-color: "${secondary_color}"'>
@@ -118,7 +118,7 @@ function format_day(date, day) {
         day_value += category.length * value;
     }
     return `
-         <div class='day' data-timestamp='${date}' data-day-value='${day_value}'>
+         <div class='day row' data-timestamp='${date}' data-day-value='${day_value}'>
            ${catagories_html}
         </div>`;
 }
