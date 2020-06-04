@@ -134,7 +134,6 @@ const days = Object.fromEntries(new Cookie("day").getAllItems());
 const today = getDateString(new Date());
 if (!days[today])
     days[today] = {};
-Console.log(days);
 var days_html = "";
 for (const [date,day] of Object.entries(days)) {
     days_html += format_day(date, day)
