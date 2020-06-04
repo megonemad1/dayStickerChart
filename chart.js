@@ -117,7 +117,7 @@ function format_day(date, day) {
         day_value += category.length * value;
     }
     return `
-         <div class='day' data-timestamp='${date}' data-day-value='${day.stickers.length}'data-day-value=${day_value}>
+         <div class='day' data-timestamp='${date}' data-day-value='${day_value}'>
            ${catagories_html}
         </div>`;
 }
