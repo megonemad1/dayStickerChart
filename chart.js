@@ -82,23 +82,10 @@ class Cookie {
 }
 
 
-const get_cookie = () => JSON.parse(document.cookie ? document.cookie : '{}');
-function update_cookies(update) {
-    data = get_cookie()
-    for (const [key, value] of Object.entries(update)) {
-        data[key] = value
-    }
-    console.log(JSON.stringify(data));
-    document.cookie = JSON.stringify(data);
-}
-
 function update_catagories() {
     var params = Object.fromEntries((new URL(window.location.href)).searchParams.entries())
-    data = get_cookie();
-    if (!data.catagories)
-        data.catagories = {}
-    Object.assign(data.catagories, params);
-    update_cookies({ catagories: data.catagories });
+    data = new Cookie("catagories");
+    data.setMany(params, 99999);
 }
 
 function str_to_color(str) {
@@ -131,14 +118,11 @@ function format_category(type, value) {
             </div>`;
     }
 }
-function format_day(date, data) {
-    const day = data.days[date];
-    const catagories = data.catagories;
-    if (!day.catagories)
-        day.catagories = {}
+function format_day(date, day) {
+    const catagories = new Cookie("catagories");
     let catagories_html = "";
     let day_value = 0;
-    for (let [type, value] of Object.entries(catagories)) {
+    for (let [type, value] of catagories.getAllItems()) {
         catagories_html += format_category(type, value);
         day_value += (day.catagories[type] ?? []).length * value;
     }
@@ -147,16 +131,20 @@ function format_day(date, data) {
            ${catagories_html}
         </div>`;
 }
+function getDateString(day) {
+    var dd = String(day.getDate()).padStart(2, '0');
+    var mm = String(day.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = day.getFullYear();
+    return day = `${dd}/${mm}/${yyyy}`;
+}
 update_catagories();
-var data = get_cookie();
-const today = new Date().getDate();
-if (!data.days)
-    data.days = { [today]: {} };
-else if (!data.days[today])
-    data.days[today] = {};
+const days = Object.fromEntries(new Cookie("day").getAllItems());
+const today = getDateString(new Date());
+if (!days[today])
+    days[today] = {};
 var days_html = "";
 for (const date in data.days) {
-    days_html += format_day(date, data)
+    days_html += format_day(date, days[date])
 }
 document.querySelector(".board").innerHTML = days_html;
 
